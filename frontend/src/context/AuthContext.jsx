@@ -1,4 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import useGetConversation from "../hooks/useGetConversation";
+import { setConversation } from "../store/conversationSlice";
 
 export const AuthContext = createContext();
 export const AuthContextVal = () => {
@@ -7,10 +10,11 @@ export const AuthContextVal = () => {
 
 const AuthContextProvider = ({ children }) => {
   const [refresh_token, setRefreshToken] = useState("");
+  
+
   useEffect(() => {
     setRefreshToken(localStorage.getItem("refreshToken"));
   }, []);
-  // localStorage.getItem("Refresh_Token").toString()
 
   return (
     <AuthContext.Provider value={{ refresh_token, setRefreshToken }}>

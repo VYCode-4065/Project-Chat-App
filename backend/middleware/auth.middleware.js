@@ -7,9 +7,12 @@ const auth = async (req, _, next) => {
 
         const refreshToken = req.cookies.Refresh_Token || req?.headers?.cookie?.split(" Refresh_Token=")[1];
 
-        // console.log();
 
         if (!refreshToken) {
+            
+        console.log('refreshToken', refreshToken);
+
+        return;
             throw new Error("Login first !")
         }
 

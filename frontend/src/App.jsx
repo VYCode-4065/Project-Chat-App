@@ -4,8 +4,11 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import SignUp from "./pages/signup/SignUp";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "./context/AuthContext";
+import { useDispatch } from "react-redux";
+import useGetConversation from "./hooks/useGetConversation";
+import { setConversation } from "./store/conversationSlice";
 
 function App() {
   const { refresh_token } = useContext(AuthContext);

@@ -11,6 +11,14 @@ const SummaryApi = {
         url: "/api/user/logout",
         method: "GET",
     },
+    getParticipants: {
+        url: "/api/user/sidebarUser",
+        method: "GET",
+    },
+    sendMessage: {
+        url: "/api/message/send",
+        method: "POST",
+    },
 
 }
 

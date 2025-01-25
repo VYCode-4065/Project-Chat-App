@@ -10,10 +10,10 @@ body {
   background-repeat: no-repeat;
 }
 
-/* dark mode looking scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  display: hidden;
 }
+/* dark mode looking scrollbar */
 
 ::-webkit-scrollbar-track {
   background: #555;

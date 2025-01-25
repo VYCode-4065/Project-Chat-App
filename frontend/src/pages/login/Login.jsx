@@ -4,6 +4,7 @@ import useLogin from "../../hooks/useLogin";
 import Loading from "../../components/Loading";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
+
 const Login = () => {
   const { loading, login } = useLogin();
 
@@ -47,6 +48,7 @@ const Login = () => {
               onChange={handleOnChange}
             />
           </div>
+
           <div className="grid gap-1">
             <label htmlFor="password " className="text-base font-semibold ">
               Password
@@ -77,6 +79,7 @@ const Login = () => {
           >
             Don't have account ?
           </Link>
+
           <button
             disabled={loading}
             className="btn btn-block shadow-md h-10 mt-5 text-lg font-semibold hover:text-white"

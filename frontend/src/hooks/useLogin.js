@@ -5,8 +5,12 @@ import SummaryApi from "../common/SummaryApi";
 import AxiosToastError from "../utils/AxiosToastError";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { setLoggedInUserDetails } from "../store/userDetailSlice";
 
 const useLogin = () => {
+
+    const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(false);
 
@@ -34,7 +38,7 @@ const useLogin = () => {
                 toast.success(responseData.message);
                 localStorage.setItem('refreshToken', responseData.refreshToken);
                 setRefreshToken(responseData.refreshToken);
-
+                dispatch(setLoggedInUserDetails(responseData.data))
             }
         } catch (error) {
             AxiosToastError(error);

@@ -3,6 +3,7 @@ import SearchInput from "../../pages/home/SearchInput";
 import SidebarUser from "../../pages/home/SidebarUser";
 import SidebarUserContainer from "./SidebarUserContainer";
 import LogoutComponent from "./LogoutComponent";
+import { useSelector } from "react-redux";
 
 const SidebarContainer = () => {
   return (

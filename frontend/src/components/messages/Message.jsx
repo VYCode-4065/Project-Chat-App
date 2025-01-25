@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import { extractTime } from "../../utils/extractedTime";
 
-const Message = () => {
+const Message = ({ authUser, message, selectedUser }) => {
+  const forMe = authUser._id === message?.senderId ? "chat-end" : "chat-start";
+
+  const profilePic =
+    authUser._id === message?.senderId
+      ? authUser.profilePic
+      : selectedUser?.profilePic;
+
   return (
-    <div className="chat chat-start mt-2">
+    <div className={`chat ${forMe} mt-2`}>
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS chat bubble component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-          />
+          <img alt="Tailwind CSS chat bubble component" src={profilePic} />
         </div>
       </div>
-      <div className="chat-bubble">
-        You were the Chosen One! Lorem ipsum dolor sit amet.
+      <div
+        className={`chat-bubble ${forMe === "chat-end" ? "bg-blue-500" : ""}`}
+      >
+        {message.message}
       </div>
-      <div className="chat-footer opacity-80">20:15</div>
+      <div className="chat-footer opacity-80">
+        {extractTime(message.createdAt)}
+      </div>
     </div>
   );
 };
