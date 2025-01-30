@@ -9,15 +9,14 @@ export const AuthContextVal = () => {
 };
 
 const AuthContextProvider = ({ children }) => {
-  const [refresh_token, setRefreshToken] = useState("");
-  
+  const [refresh_token, setRefresh_Token] = useState("");
 
   useEffect(() => {
-    setRefreshToken(localStorage.getItem("refreshToken"));
+    setRefresh_Token(localStorage.getItem("refreshToken"));
   }, []);
 
   return (
-    <AuthContext.Provider value={{ refresh_token, setRefreshToken }}>
+    <AuthContext.Provider value={{ refresh_token, setRefresh_Token }}>
       {children}
     </AuthContext.Provider>
   );

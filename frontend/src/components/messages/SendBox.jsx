@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiSend } from "react-icons/fi";
 import AxiosToastError from "../../utils/AxiosToastError";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Axios from "../../utils/Axios";
 import SummaryApi from "../../common/SummaryApi.js";
 import toast from "react-hot-toast";
+import useGetMessage from "../../hooks/useGetMessage.js";
+import { toggleRefresh } from "../../store/conversationSlice.js";
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 
-const SendBox = ({ setRefreshMessage }) => {
+const SendBox = () => {
   const [message, setMessage] = useState("");
   const selectedUser = useSelector(
     (state) => state.conversationDetails.selectedUser
   );
 
+  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -29,12 +32,12 @@ const SendBox = ({ setRefreshMessage }) => {
           message: message,
         },
       });
-
-      setRefreshMessage((prev) => !prev);
     } catch (error) {
       AxiosToastError(error);
+    } finally {
+      setMessage("");
+      dispatch(toggleRefresh());
     }
-    setMessage("");
   };
   return (
     <div className="relative">

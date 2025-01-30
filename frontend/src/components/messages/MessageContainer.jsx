@@ -1,63 +1,37 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Message from "./Message";
 import SendBox from "./SendBox";
 import useGetConversation from "../../hooks/useGetConversation";
 import { useSelector, useDispatch } from "react-redux";
-import { setConversation } from "../../store/conversationSlice";
+import { setConversation, setMessages } from "../../store/conversationSlice";
 import AxiosToastError from "../../utils/AxiosToastError";
 import axios from "axios";
 import Axios from "../../utils/Axios";
 import MessageSkeleton from "../../common/MessageSkeleton";
+import { AuthContextVal } from "../../context/AuthContext";
+import useGetMessage from "../../hooks/useGetMessage";
+import useListenMessage from "../../hooks/useListenMessage";
 
 const MessageContainer = () => {
-  const { loading, conversation, getConversation } = useGetConversation();
-
-  const conversationData = useSelector(
-    (state) => state?.conversationDetails?.conversation
-  );
+  useListenMessage();
 
   const selectedUser = useSelector(
     (state) => state?.conversationDetails?.selectedUser
   );
 
-  const [messageDetails, setMessageDetails] = useState([]);
-
-  const [messageLoading, setMessageLoading] = useState(false);
-
-  const GetMessageHandler = async () => {
-    setMessageLoading(true);
-    try {
-      const response = await Axios({
-        url: `${import.meta.env.VITE_BACKEND_URL}/api/message/get/${
-          selectedUser._id
-        }`,
-        method: "GET",
-      });
-
-      setMessageDetails(response.data);
-    } catch (error) {
-      AxiosToastError(error);
-    } finally {
-      setMessageLoading(false);
-    }
-  };
+  const { loading } = useGetMessage();
+  const messages = useSelector((state) => state.conversationDetails.messages);
 
   const authUser = useSelector(
     (state) => state.loggedInUserDetails.loggedInUser
   );
-
-  const [refreshMessage, setRefreshMessage] = useState(false);
-
-  useEffect(() => {
-    GetMessageHandler();
-  }, [selectedUser, refreshMessage]);
 
   const scrollRef = useRef();
   useEffect(() => {
     setTimeout(() => {
       scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
     }, 100);
-  }, [messageDetails]);
+  }, [messages]);
 
   return (
     <div className="md:min-w-[450px] flex flex-col justify-center gap-2 ">
@@ -70,14 +44,14 @@ const MessageContainer = () => {
         </h2>
       </div>
       <div className="w-full h-[430px] overflow-auto">
-        {messageLoading &&
+        {loading &&
           [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
-        {!messageLoading && !messageDetails[0] && (
+        {!loading && !messages[0] && (
           <div className="flex justify-center items-center h-[430px] text-lg">
             <p>No messages yet.</p>
           </div>
         )}
-        {messageDetails.map((val, idx) => {
+        {messages.map((val, idx) => {
           return (
             <div key={idx} ref={scrollRef}>
               <Message
@@ -89,7 +63,7 @@ const MessageContainer = () => {
           );
         })}
       </div>
-      <SendBox setRefreshMessage={setRefreshMessage} />
+      <SendBox />
     </div>
   );
 };

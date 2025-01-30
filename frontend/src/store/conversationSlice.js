@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     selectedUser: null,
-    conversation: []
+    conversation: [],
+    messages: [],
+    refresh: false
 }
 
 const conversationSlice = createSlice({
@@ -14,10 +16,16 @@ const conversationSlice = createSlice({
         },
         setConversation: (state, action) => {
             state.conversation = action.payload;
+        },
+        setMessages: (state, action) => {
+            state.messages = action.payload;
+        },
+        toggleRefresh: (state, action) => {
+            state.refresh = !state.refresh;
         }
     }
 })
 
-export const { toggleUser, setConversation } = conversationSlice.actions;
+export const { toggleUser, setConversation, setMessages, toggleRefresh } = conversationSlice.actions;
 
 export default conversationSlice.reducer;

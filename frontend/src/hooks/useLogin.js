@@ -14,7 +14,7 @@ const useLogin = () => {
 
     const [loading, setLoading] = useState(false);
 
-    const { setRefreshToken } = useContext(AuthContext);
+    const { setRefresh_Token } = useContext(AuthContext);
 
     const login = async (username, password) => {
         const success = verfiyLogin(username, password);
@@ -37,7 +37,7 @@ const useLogin = () => {
             if (responseData.success) {
                 toast.success(responseData.message);
                 localStorage.setItem('refreshToken', responseData.refreshToken);
-                setRefreshToken(responseData.refreshToken);
+                setRefresh_Token(responseData.refreshToken);
                 dispatch(setLoggedInUserDetails(responseData.data))
             }
         } catch (error) {

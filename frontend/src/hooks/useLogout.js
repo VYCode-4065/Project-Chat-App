@@ -5,12 +5,16 @@ import SummaryApi from "../common/SummaryApi";
 import AxiosToastError from "../utils/AxiosToastError";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { setLoggedInUserDetails } from "../store/userDetailSlice";
 
 const useLogout = () => {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
-    const { setRefreshToken } = useContext(AuthContext);
+    const { setRefresh_Token } = useContext(AuthContext);
+
+    const dispatch = useDispatch();
 
     const logout = async () => {
 
@@ -29,8 +33,9 @@ const useLogout = () => {
 
             if (responseData.success) {
                 toast.success(responseData.message);
+                dispatch(setLoggedInUserDetails(''));
                 localStorage.removeItem('refreshToken');
-                setRefreshToken(null);
+                setRefresh_Token(null);
             }
 
         } catch (error) {

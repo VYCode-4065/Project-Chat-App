@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleUser } from "../../store/conversationSlice";
 import { getRandomEmoji } from "../../utils/Emoji";
+import { SocketContextVal } from "../../context/SocketContext";
 
 const SidebarUser = ({ convers, selectUser }) => {
   const [emoji, setEmoji] = useState("");
@@ -16,6 +17,10 @@ const SidebarUser = ({ convers, selectUser }) => {
     dispatch(toggleUser(convers));
   };
 
+  const onlineUser = SocketContextVal()?.onlineUser;
+
+  const isOnline = onlineUser?.includes(convers._id);
+
   return (
     <>
       <div
@@ -25,7 +30,7 @@ const SidebarUser = ({ convers, selectUser }) => {
         onClick={() => handleSelectUser()}
       >
         <div className="flex items-center gap-4">
-          <div className="avatar online">
+          <div className={`avatar ${isOnline ? "online" : ""}`}>
             <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
               <img
                 src={

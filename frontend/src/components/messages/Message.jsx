@@ -11,7 +11,7 @@ const Message = ({ authUser, message, selectedUser }) => {
       : selectedUser?.profilePic;
 
   return (
-    <div className={`chat ${forMe} mt-2`}>
+    <div className={`chat ${forMe} ${message.shouldshake ? "shake" : ""} mt-2`}>
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
           <img alt="Tailwind CSS chat bubble component" src={profilePic} />
