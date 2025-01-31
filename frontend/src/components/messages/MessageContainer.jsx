@@ -18,7 +18,7 @@ import useGetMessage from "../../hooks/useGetMessage";
 import useListenMessage from "../../hooks/useListenMessage";
 import { FaArrowLeft } from "react-icons/fa";
 
-const MessageContainer = ({ active, setActive }) => {
+const MessageContainer = () => {
   useListenMessage();
 
   const selectedUser = useSelector(
@@ -73,7 +73,7 @@ const MessageContainer = ({ active, setActive }) => {
             <p>No messages yet.</p>
           </div>
         )}
-        {messages.map((val, idx) => {
+        {messages?.map((val, idx) => {
           return (
             <div key={idx} ref={scrollRef}>
               <Message

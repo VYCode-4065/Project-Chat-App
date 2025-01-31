@@ -5,7 +5,7 @@ import SidebarUserContainer from "./SidebarUserContainer";
 import LogoutComponent from "./LogoutComponent";
 import { useSelector } from "react-redux";
 
-const SidebarContainer = ({ active, setActive }) => {
+const SidebarContainer = () => {
   const selectedUser = useSelector(
     (state) => state.conversationDetails.selectedUser
   );
@@ -17,7 +17,7 @@ const SidebarContainer = ({ active, setActive }) => {
     >
       <SearchInput />
       <div className="divider py-0 my-3 h-2 text-white " />
-      <SidebarUserContainer activate={() => setActive(true)} />
+      <SidebarUserContainer />
       <LogoutComponent />
     </div>
   );
