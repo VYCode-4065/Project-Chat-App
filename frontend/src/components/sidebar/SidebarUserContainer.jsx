@@ -19,20 +19,17 @@ const SidebarUserContainer = ({ activate }) => {
 
   return (
     <div className="h-[430px] overflow-auto ">
-      {conversationValue?.conversation?.map((val, idx) => {
-        return (
-          <SidebarUser
-            key={val._id}
-            convers={val}
-            selectUser={conversationValue.selectedUser}
-            activate={activate}
-          />
-        );
-      })}
-      {/* <SidebarUser />
-      <SidebarUser />
-      <SidebarUser />
-      <SidebarUser /> */}
+      {Array.isArray(conversationValue?.conversation) &&
+        conversationValue?.conversation?.map((val, idx) => {
+          return (
+            <SidebarUser
+              key={val._id}
+              convers={val}
+              selectUser={conversationValue.selectedUser}
+              activate={activate}
+            />
+          );
+        })}
     </div>
   );
 };

@@ -67,23 +67,24 @@ const MessageContainer = () => {
       </div>
       <div className="w-full h-[430px] overflow-auto">
         {loading &&
-          [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
+          [...Array(3)]?.map((_, idx) => <MessageSkeleton key={idx} />)}
         {!loading && !messages[0] && (
           <div className="flex justify-center items-center h-[430px] text-lg">
             <p>No messages yet.</p>
           </div>
         )}
-        {messages?.map((val, idx) => {
-          return (
-            <div key={idx} ref={scrollRef}>
-              <Message
-                message={val}
-                authUser={authUser}
-                selectedUser={selectedUser}
-              />
-            </div>
-          );
-        })}
+        {Array.isArray(messages) &&
+          messages?.map((val, idx) => {
+            return (
+              <div key={idx} ref={scrollRef}>
+                <Message
+                  message={val}
+                  authUser={authUser}
+                  selectedUser={selectedUser}
+                />
+              </div>
+            );
+          })}
       </div>
       <SendBox />
     </div>
