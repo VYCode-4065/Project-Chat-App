@@ -5,12 +5,19 @@ import SidebarUserContainer from "./SidebarUserContainer";
 import LogoutComponent from "./LogoutComponent";
 import { useSelector } from "react-redux";
 
-const SidebarContainer = () => {
+const SidebarContainer = ({ active, setActive }) => {
+  const selectedUser = useSelector(
+    (state) => state.conversationDetails.selectedUser
+  );
   return (
-    <div className="   flex flex-col justify-center md:min-w-[300px] border-r border-gray-200 md:px-2  overflow-auto">
+    <div
+      className={`${
+        selectedUser?._id ? "hidden" : ""
+      } md:flex flex-col justify-center  w-[360px] md:min-w-[300px] md:border-r border-gray-200 md:px-2  overflow-auto`}
+    >
       <SearchInput />
       <div className="divider py-0 my-3 h-2 text-white " />
-      <SidebarUserContainer />
+      <SidebarUserContainer activate={() => setActive(true)} />
       <LogoutComponent />
     </div>
   );

@@ -22,10 +22,13 @@ const conversationSlice = createSlice({
         },
         toggleRefresh: (state, action) => {
             state.refresh = !state.refresh;
+        },
+        unsetSelectedUser: (state, action) => {
+            state.selectedUser = null;
         }
     }
 })
 
-export const { toggleUser, setConversation, setMessages, toggleRefresh } = conversationSlice.actions;
+export const { toggleUser, setConversation, setMessages, toggleRefresh, unsetSelectedUser } = conversationSlice.actions;
 
 export default conversationSlice.reducer;

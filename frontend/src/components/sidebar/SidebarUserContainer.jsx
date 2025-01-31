@@ -5,7 +5,7 @@ import useGetConversation from "../../hooks/useGetConversation";
 import { setConversation, toggleUser } from "../../store/conversationSlice";
 import { AuthContext } from "../../context/AuthContext";
 
-const SidebarUserContainer = () => {
+const SidebarUserContainer = ({ activate }) => {
   const conversationValue = useSelector((state) => state.conversationDetails);
 
   const { loading, conversation } = useGetConversation();
@@ -25,6 +25,7 @@ const SidebarUserContainer = () => {
             key={val._id}
             convers={val}
             selectUser={conversationValue.selectedUser}
+            activate={activate}
           />
         );
       })}

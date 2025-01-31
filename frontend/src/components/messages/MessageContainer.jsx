@@ -3,7 +3,12 @@ import Message from "./Message";
 import SendBox from "./SendBox";
 import useGetConversation from "../../hooks/useGetConversation";
 import { useSelector, useDispatch } from "react-redux";
-import { setConversation, setMessages } from "../../store/conversationSlice";
+import {
+  setConversation,
+  setMessages,
+  toggleUser,
+  unsetSelectedUser,
+} from "../../store/conversationSlice";
 import AxiosToastError from "../../utils/AxiosToastError";
 import axios from "axios";
 import Axios from "../../utils/Axios";
@@ -11,8 +16,9 @@ import MessageSkeleton from "../../common/MessageSkeleton";
 import { AuthContextVal } from "../../context/AuthContext";
 import useGetMessage from "../../hooks/useGetMessage";
 import useListenMessage from "../../hooks/useListenMessage";
+import { FaArrowLeft } from "react-icons/fa";
 
-const MessageContainer = () => {
+const MessageContainer = ({ active, setActive }) => {
   useListenMessage();
 
   const selectedUser = useSelector(
@@ -33,9 +39,25 @@ const MessageContainer = () => {
     }, 100);
   }, [messages]);
 
+  const dispatch = useDispatch();
+
   return (
-    <div className="md:min-w-[450px] flex flex-col justify-center gap-2 ">
-      <div className="max-h-10 p-2  border rounded-md shadow-sm bg-gray-400 text-black">
+    <div
+      className={`${
+        selectedUser?._id ? "" : "hidden"
+      } w-[350px] md:min-w-[450px] flex flex-col justify-center gap-2 `}
+    >
+      <div className="static top-2 h-screen max-h-10 p-2  border rounded-md shadow-sm bg-gray-400 text-black flex items-center gap-3">
+        {
+          <p
+            className="md:hidden"
+            onClick={() => {
+              dispatch(unsetSelectedUser());
+            }}
+          >
+            <FaArrowLeft size={20} />
+          </p>
+        }
         <h2>
           <span className="font-semibold text-lg">To :</span>{" "}
           <span className="font-semibold text-base">

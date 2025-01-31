@@ -39,6 +39,7 @@ const Login = () => {
               Username
             </label>
             <input
+              required
               type="text"
               id="username"
               name="username"
@@ -55,6 +56,7 @@ const Login = () => {
             </label>
             <div className="relative">
               <input
+                required
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"

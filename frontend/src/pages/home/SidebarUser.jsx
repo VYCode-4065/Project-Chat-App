@@ -4,7 +4,7 @@ import { toggleUser } from "../../store/conversationSlice";
 import { getRandomEmoji } from "../../utils/Emoji";
 import { SocketContextVal } from "../../context/SocketContext";
 
-const SidebarUser = ({ convers, selectUser }) => {
+const SidebarUser = ({ convers, selectUser, activate }) => {
   const [emoji, setEmoji] = useState("");
 
   useEffect(() => {
@@ -24,10 +24,13 @@ const SidebarUser = ({ convers, selectUser }) => {
   return (
     <>
       <div
-        className={`flex items-center justify-between px-2 my-2 cursor-pointer 0 p-2 rounded-lg bg-opacity-30 ${
+        className={`flex text-black items-center justify-between px-2 my-2 cursor-pointer 0 p-2 rounded-lg bg-opacity-30 ${
           selectUser === convers ? "bg-sky-500" : ""
         }`}
-        onClick={() => handleSelectUser()}
+        onClick={() => {
+          handleSelectUser();
+          activate();
+        }}
       >
         <div className="flex items-center gap-4">
           <div className={`avatar ${isOnline ? "online" : ""}`}>

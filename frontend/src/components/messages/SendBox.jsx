@@ -42,7 +42,7 @@ const SendBox = () => {
   return (
     <div className="relative">
       <form
-        className="flex items-center justify-between   w-full "
+        className="flex items-center justify-between w-full"
         onSubmit={handleSubmit}
       >
         <input
