@@ -4,7 +4,7 @@ import { toggleUser } from "../../store/conversationSlice";
 import { getRandomEmoji } from "../../utils/Emoji";
 import { SocketContextVal } from "../../context/SocketContext";
 
-const SidebarUser = ({ convers, selectUser, activate }) => {
+const SidebarUser = ({ convers, selectUser }) => {
   const [emoji, setEmoji] = useState("");
 
   useEffect(() => {
@@ -29,7 +29,6 @@ const SidebarUser = ({ convers, selectUser, activate }) => {
         }`}
         onClick={() => {
           handleSelectUser();
-          activate();
         }}
       >
         <div className="flex items-center gap-4">
