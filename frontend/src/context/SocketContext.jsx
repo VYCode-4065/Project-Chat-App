@@ -19,7 +19,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (authUser) {
-      const newSocket = io(import.meta.env.VITE_BACKEND_URL, {
+      const newSocket = io("https://project-chat-app-jjyf.onrender.com", {
         query: {
           userId: authUser._id,
         },

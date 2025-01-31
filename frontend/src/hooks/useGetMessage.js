@@ -20,7 +20,7 @@ const useGetMessage = () => {
         setLoading(true);
         try {
             const response = await Axios({
-                url: `${import.meta.env.VITE_BACKEND_URL}/api/message/get/${selectedUser._id}`,
+                url: `https://project-chat-app-jjyf.onrender.com/api/message/get/${selectedUser._id}`,
                 method: "GET",
             });
 
